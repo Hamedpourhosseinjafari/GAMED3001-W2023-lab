@@ -45,13 +45,31 @@ void PlayScene::HandleEvents()
 		if (EventManager::Instance().IsKeyDown(SDL_SCANCODE_A))
 		{
 			m_pPlayer->SetAnimationState(PlayerAnimationState::PLAYER_RUN_LEFT);
-			m_pPlayer->GetTransform()->position = m_pPlayer->GetTransform()->position - glm::vec2(5.0f, 0.0f);
+			if(m_pPlayer->GetTransform()->position.x>= 20.0f &&m_pPlayer->GetTransform()->position.x <=775.0f)
+			{
+				m_pPlayer->GetTransform()->position = m_pPlayer->GetTransform()->position - glm::vec2(5.0f, 0.0f);
+				
+
+			}
+			m_playerFacingRight = false;
+			if(m_pPlayer->GetTransform()->position.x ==20.0f)
+			{
+				Game::Instance().ChangeSceneState(SceneState::END);
+			}
 			m_playerFacingRight = false;
 		}
-		else if (EventManager::Instance().IsKeyDown(SDL_SCANCODE_D))
+		if (EventManager::Instance().IsKeyDown(SDL_SCANCODE_D))
 		{
 			m_pPlayer->SetAnimationState(PlayerAnimationState::PLAYER_RUN_RIGHT);
-			m_pPlayer->GetTransform()->position = m_pPlayer->GetTransform()->position + glm::vec2(5.0f, 0.0f);
+			if (m_pPlayer->GetTransform()->position.x >= 25.0f && m_pPlayer->GetTransform()->position.x <= 785.0f)
+			{
+				m_pPlayer->GetTransform()->position = m_pPlayer->GetTransform()->position + glm::vec2(5.0f, 0.0f);
+			}
+			if(m_pPlayer->GetTransform()->position.x == 785.0f)
+			{
+				Game::Instance().ChangeSceneState(SceneState::END);
+	
+			}
 			m_playerFacingRight = true;
 		}
 		else
@@ -60,13 +78,43 @@ void PlayScene::HandleEvents()
 			{
 				m_pPlayer->SetAnimationState(PlayerAnimationState::PLAYER_IDLE_RIGHT);
 			}
-			else
+			else if (EventManager::Instance().IsKeyUp(SDL_SCANCODE_A))
 			{
 				m_pPlayer->SetAnimationState(PlayerAnimationState::PLAYER_IDLE_LEFT);
 			}
 		}
 	}
-	
+	if(SDL_NumJoysticks() < 1)
+	{
+		if (EventManager::Instance().IsKeyDown(SDL_SCANCODE_W))
+		{
+			//m_pPlayer->SetAnimationState(PlayerAnimationState::PLAYER_RUN_LEFT);
+			if (m_pPlayer->GetTransform()->position.y >= 20.0f && m_pPlayer->GetTransform()->position.y <= 775.0f)
+			{
+				m_pPlayer->GetTransform()->position = m_pPlayer->GetTransform()->position - glm::vec2(0.0f, 5.0f);
+			}
+			if(m_pPlayer->GetTransform()->position.y == 20.0f)
+			{
+				Game::Instance().ChangeSceneState(SceneState::END);
+			}
+			m_playerFacingRight = false;
+		}
+		else if (EventManager::Instance().IsKeyDown(SDL_SCANCODE_S))
+		{
+			//m_pPlayer->SetAnimationState(PlayerAnimationState::PLAYER_RUN_RIGHT);
+			if (m_pPlayer->GetTransform()->position.y <= 575)
+			{
+				m_pPlayer->GetTransform()->position = m_pPlayer->GetTransform()->position + glm::vec2(0.0f, 5.0f);
+			}
+			if(m_pPlayer->GetTransform()->position.y == 575)
+			{
+				Game::Instance().ChangeSceneState(SceneState::END);
+			}
+
+			m_playerFacingRight = true;
+		}
+		
+	}
 
 	if (EventManager::Instance().IsKeyDown(SDL_SCANCODE_ESCAPE))
 	{
