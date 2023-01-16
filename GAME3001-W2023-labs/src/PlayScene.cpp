@@ -45,7 +45,7 @@ void PlayScene::HandleEvents()
 		if (EventManager::Instance().IsKeyDown(SDL_SCANCODE_A))
 		{
 			m_pPlayer->SetAnimationState(PlayerAnimationState::PLAYER_RUN_LEFT);
-			if(m_pPlayer->GetTransform()->position.x>= 20.0f &&m_pPlayer->GetTransform()->position.x <=775.0f)
+			if(m_pPlayer->GetTransform()->position.x>= 20.0f )
 			{
 				m_pPlayer->GetTransform()->position = m_pPlayer->GetTransform()->position - glm::vec2(5.0f, 0.0f);
 				
@@ -61,7 +61,7 @@ void PlayScene::HandleEvents()
 		if (EventManager::Instance().IsKeyDown(SDL_SCANCODE_D))
 		{
 			m_pPlayer->SetAnimationState(PlayerAnimationState::PLAYER_RUN_RIGHT);
-			if (m_pPlayer->GetTransform()->position.x >= 25.0f && m_pPlayer->GetTransform()->position.x <= 785.0f)
+			if ( m_pPlayer->GetTransform()->position.x <= 785.0f)
 			{
 				m_pPlayer->GetTransform()->position = m_pPlayer->GetTransform()->position + glm::vec2(5.0f, 0.0f);
 			}
@@ -89,7 +89,7 @@ void PlayScene::HandleEvents()
 		if (EventManager::Instance().IsKeyDown(SDL_SCANCODE_W))
 		{
 			//m_pPlayer->SetAnimationState(PlayerAnimationState::PLAYER_RUN_LEFT);
-			if (m_pPlayer->GetTransform()->position.y >= 20.0f && m_pPlayer->GetTransform()->position.y <= 775.0f)
+			if (m_pPlayer->GetTransform()->position.y >= 20.0f)
 			{
 				m_pPlayer->GetTransform()->position = m_pPlayer->GetTransform()->position - glm::vec2(0.0f, 5.0f);
 			}
