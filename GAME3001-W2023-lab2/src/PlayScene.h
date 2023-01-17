@@ -3,7 +3,8 @@
 #define __PLAY_SCENE__
 
 #include "Scene.h"
-#include "Player.h"
+#include "Target.h"
+
 
 
 class PlayScene : public Scene
@@ -24,7 +25,7 @@ private:
 	std::string m_guiTitle;
 	glm::vec2 m_mousePosition;
 
-
+	Target* m_pTarget;
 };
 	// UI Items
 
