@@ -79,11 +79,13 @@ void PlayScene::GUI_Function() const
 	ImGui::Begin("GAME3001-W2023-lab2", NULL, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_MenuBar);
 
 
+	static float position[2] = { m_pTarget->GetTransform()->position.x,m_pTarget->GetTransform()->position.y };
 
-	if (ImGui::Button("unused button"))
+	if (ImGui::SliderFloat2("target position",position,0.0f,800.0f))
 	{
-		std::cout << "clicked unused button " << std::endl;
+		m_pTarget->GetTransform()->position = glm::vec2(position[0],position[1]);
 	}
+	
 
 	ImGui::End();
 }
