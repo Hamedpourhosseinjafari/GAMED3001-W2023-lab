@@ -5,13 +5,19 @@
 #include "Scene.h"
 #include "Target.h"
 
-
+class starship
+{
+public:
+	
+};
 
 class PlayScene : public Scene
 {
 public:
 	PlayScene();
 	~PlayScene() override;
+
+	
 
 	// Scene LifeCycle Functions
 	virtual void Draw() override;
@@ -26,6 +32,7 @@ private:
 	glm::vec2 m_mousePosition;
 
 	Target* m_pTarget;
+
 };
 	// UI Items
 
