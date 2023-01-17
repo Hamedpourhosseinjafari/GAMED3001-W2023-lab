@@ -22,11 +22,9 @@ private:
 	// IMGUI Function
 	void GUI_Function() const;
 	std::string m_guiTitle;
-
 	glm::vec2 m_mousePosition;
 
-	Player* m_pPlayer;
-	bool m_playerFacingRight;
+
 };
 	// UI Items
 

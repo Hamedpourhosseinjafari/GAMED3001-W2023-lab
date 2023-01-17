@@ -36,85 +36,10 @@ void PlayScene::HandleEvents()
 {
 	EventManager::Instance().Update();
 
-	// handle player movement with GameController
+	
 	
 
 	// handle player movement if no Game Controllers found
-	if (SDL_NumJoysticks() < 1)
-	{
-		if (EventManager::Instance().IsKeyDown(SDL_SCANCODE_A))
-		{
-			m_pPlayer->SetAnimationState(PlayerAnimationState::PLAYER_RUN_LEFT);
-			if(m_pPlayer->GetTransform()->position.x>= 20.0f )
-			{
-				m_pPlayer->GetTransform()->position = m_pPlayer->GetTransform()->position - glm::vec2(5.0f, 0.0f);
-				
-
-			}
-			m_playerFacingRight = false;
-			if(m_pPlayer->GetTransform()->position.x ==20.0f)
-			{
-				Game::Instance().ChangeSceneState(SceneState::END);
-			}
-			m_playerFacingRight = false;
-		}
-		if (EventManager::Instance().IsKeyDown(SDL_SCANCODE_D))
-		{
-			m_pPlayer->SetAnimationState(PlayerAnimationState::PLAYER_RUN_RIGHT);
-			if ( m_pPlayer->GetTransform()->position.x <= 785.0f)
-			{
-				m_pPlayer->GetTransform()->position = m_pPlayer->GetTransform()->position + glm::vec2(5.0f, 0.0f);
-			}
-			if(m_pPlayer->GetTransform()->position.x == 785.0f)
-			{
-				Game::Instance().ChangeSceneState(SceneState::END);
-	
-			}
-			m_playerFacingRight = true;
-		}
-		else
-		{
-			if (m_playerFacingRight)
-			{
-				m_pPlayer->SetAnimationState(PlayerAnimationState::PLAYER_IDLE_RIGHT);
-			}
-			else if (EventManager::Instance().IsKeyUp(SDL_SCANCODE_A))
-			{
-				m_pPlayer->SetAnimationState(PlayerAnimationState::PLAYER_IDLE_LEFT);
-			}
-		}
-	}
-	if(SDL_NumJoysticks() < 1)
-	{
-		if (EventManager::Instance().IsKeyDown(SDL_SCANCODE_W))
-		{
-			//m_pPlayer->SetAnimationState(PlayerAnimationState::PLAYER_RUN_LEFT);
-			if (m_pPlayer->GetTransform()->position.y >= 20.0f)
-			{
-				m_pPlayer->GetTransform()->position = m_pPlayer->GetTransform()->position - glm::vec2(0.0f, 5.0f);
-			}
-			if(m_pPlayer->GetTransform()->position.y == 20.0f)
-			{
-				Game::Instance().ChangeSceneState(SceneState::END);
-			}
-			m_playerFacingRight = false;
-		}
-		else if (EventManager::Instance().IsKeyDown(SDL_SCANCODE_S))
-		{
-			//m_pPlayer->SetAnimationState(PlayerAnimationState::PLAYER_RUN_RIGHT);
-			if (m_pPlayer->GetTransform()->position.y <= 575)
-			{
-				m_pPlayer->GetTransform()->position = m_pPlayer->GetTransform()->position + glm::vec2(0.0f, 5.0f);
-			}
-			if(m_pPlayer->GetTransform()->position.y == 575)
-			{
-				Game::Instance().ChangeSceneState(SceneState::END);
-			}
-
-			m_playerFacingRight = true;
-		}
-		
-	}
 
 	if (EventManager::Instance().IsKeyDown(SDL_SCANCODE_ESCAPE))
 	{
@@ -136,17 +61,6 @@ void PlayScene::Start()
 {
 	// Set GUI Title
 	m_guiTitle = "Play Scene";
-	
-
-
-	// Player Sprite
-	m_pPlayer = new Player();
-	m_pPlayer->GetTransform()->position = glm::vec2(50.0f, 50.0f);
-	AddChild(m_pPlayer);
-	m_playerFacingRight = true;
-
-	// Back Button
-
 
 	ImGuiWindowFrame::Instance().SetGuiFunction(std::bind(&PlayScene::GUI_Function, this));
 }
@@ -158,32 +72,15 @@ void PlayScene::GUI_Function() const
 
 	// See examples by uncommenting the following - also look at imgui_demo.cpp in the IMGUI filter
 	//ImGui::ShowDemoWindow();
-	
-	ImGui::Begin("GAME3001-W2023-lab1", NULL, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_MenuBar );
+
+	ImGui::Begin("GAME3001-W2023-lab2", NULL, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_MenuBar);
 
 
-	ImGui::Separator();
 
-	 float float2[2] = { m_pPlayer->GetTransform()->position.x, m_pPlayer->GetTransform()->position.y};
-	if(ImGui::SliderFloat2("My Slider", float2, 0.0f, 800.0f))
+	if (ImGui::Button("unused button"))
 	{
-		if(float2[0] > m_pPlayer->GetTransform()->position.x)
-		{
-			//moving right
-
-			m_pPlayer->SetAnimationState(PlayerAnimationState::PLAYER_RUN_RIGHT);
-		}
-		if (float2[0] < m_pPlayer->GetTransform()->position.x)
-		{
-			//moving left
-
-			m_pPlayer->SetAnimationState(PlayerAnimationState::PLAYER_RUN_LEFT);
-		}
-		m_pPlayer->GetTransform()->position = glm::vec2(float2[0], float2[1]);
-
-
-
+		std::cout << "clicked unused button " << std::endl;
 	}
-	
+
 	ImGui::End();
 }
