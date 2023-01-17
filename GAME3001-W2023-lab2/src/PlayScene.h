@@ -4,6 +4,7 @@
 
 #include "Scene.h"
 #include "Target.h"
+#include "Starship.h"
 
 class starship
 {
@@ -32,7 +33,8 @@ private:
 	glm::vec2 m_mousePosition;
 
 	Target* m_pTarget;
-
+	StarShip* m_pStarShip;
+	
 };
 	// UI Items
 
