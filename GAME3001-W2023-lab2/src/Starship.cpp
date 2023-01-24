@@ -1,5 +1,8 @@
 #include "Starship.h"
+
+#include "Game.h"
 #include "TextureManager.h"
+#include "Util.h"
 
 StarShip::StarShip()
 {
@@ -32,6 +35,7 @@ void StarShip::Draw()
 
 void StarShip::Update()
 {
+	m_move();
 }
 
 void StarShip::Clean()
@@ -75,16 +79,62 @@ void StarShip::SetAcceletaionRate(const float rate)
 
 void StarShip::SetDesiredVelocity(glm::vec2 target_position)
 {
+	SetTargetPosition(target_position);
+	m_desiredVelocity = Util::Normalize(target_position - GetTransform()->position) * GetMaxSpeed();
+	GetRigidBody()->velocity = m_desiredVelocity - GetRigidBody()->velocity;
 }
 
 void StarShip::seek()
 {
+	SetDesiredVelocity(GetTargetPosition());
+
+	const glm::vec2 steering_direction = GetDesiredVelocity() - GetCurrentDirection();
+	LookWhereYoureGoing(steering_direction);
+	GetRigidBody()->acceleration = GetCurrentDirection() * GetAccelerationRate();
 }
 
 void StarShip::LookWhereYoureGoing(glm::vec2 target_direction)
 {
+	const float target_rotation = Util::SignedAngle(GetCurrentDirection(), target_direction);
+	const float turn_sensitivity = 5.0f;
+	if (abs(target_rotation) > turn_sensitivity)
+	{
+		if (target_rotation > 0.0f)
+		{
+			SetCurrentHeading(GetCurrentHeading() + GetTurnRate());
+		}
+		else if (target_rotation < 0.0f)
+		{
+			SetCurrentHeading(GetCurrentHeading() - GetTurnRate());
+		}
+	}
 }
 
 void StarShip::m_move()
 {
+	seek();
+ 	//                    final pos  position term    velocity         acceleration term
+ 	//kinematic equation-> pf      = pi +             vi * (time) + (0.5)* ai * (time *time)
+	const float dt = Game::Instance().GetDeltaTime();
+
+	//compute the pos term
+	const glm::vec2 inital_position = GetTransform()->position;
+
+	//compute velocity term
+	const glm::vec2 velocity_term = GetRigidBody()->velocity * dt;
+
+	//compute the acceleration term
+	const glm::vec2 acceleration_term = GetRigidBody()->acceleration * 0.5f; // * dt * dt
+
+	//compute the new pos
+	glm::vec2 final_position = inital_position + velocity_term + acceleration_term;
+
+	GetTransform()->position = final_position;
+
+	//add our acceleration
+	GetRigidBody()->velocity += GetRigidBody()->acceleration;
+
+	//clamp our velocity at max speed
+	GetRigidBody()->velocity = Util::Clamp(GetRigidBody()->velocity, GetMaxSpeed());
+
 }

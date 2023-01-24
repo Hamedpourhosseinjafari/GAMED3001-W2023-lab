@@ -105,6 +105,7 @@ void PlayScene::GUI_Function()
 	if (ImGui::SliderFloat2("target position",position,0.0f,800.0f))
 	{
 		m_pTarget->GetTransform()->position = glm::vec2(position[0],position[1]);
+		m_pStarShip->SetTargetPosition(m_pTarget->GetTransform()->position);
 	}
 	ImGui::Separator();
 	//starship properties
