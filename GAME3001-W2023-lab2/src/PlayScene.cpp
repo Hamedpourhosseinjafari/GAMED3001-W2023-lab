@@ -79,7 +79,7 @@ void PlayScene::Start()
 	
 }
 
-void PlayScene::GUI_Function() const
+void PlayScene::GUI_Function() 
 {
 	// Always open with a NewFrame
 	ImGui::NewFrame();
@@ -89,14 +89,30 @@ void PlayScene::GUI_Function() const
 
 	ImGui::Begin("GAME3001-W2023-lab2", NULL, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_MenuBar);
 
+	ImGui::Separator();
 
+	//debug properties
+	static bool toggleDebug;
+	if(ImGui::Checkbox("toggle debug", &toggleDebug))
+	{
+		m_bDebugView = toggleDebug;
+	}
+	ImGui::Separator();
+	
+	//target properties
 	static float position[2] = { m_pTarget->GetTransform()->position.x,m_pTarget->GetTransform()->position.y };
 
 	if (ImGui::SliderFloat2("target position",position,0.0f,800.0f))
 	{
 		m_pTarget->GetTransform()->position = glm::vec2(position[0],position[1]);
 	}
-	
+	ImGui::Separator();
+	//starship properties
+	static bool toggleseek = m_pStarShip->IsEnabled();
+	if(ImGui::Checkbox("toggle seek",&toggleseek))
+	{
+		m_pStarShip->SetEnabled(toggleseek);
+	}
 
 	ImGui::End();
 }
