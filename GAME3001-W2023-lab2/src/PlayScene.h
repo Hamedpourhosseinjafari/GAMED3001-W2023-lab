@@ -34,7 +34,10 @@ private:
 
 	Target* m_pTarget;
 	StarShip* m_pStarShip;
-	
+
+
+	//debugging variables
+	bool m_bDebugView;
 };
 	// UI Items
 
