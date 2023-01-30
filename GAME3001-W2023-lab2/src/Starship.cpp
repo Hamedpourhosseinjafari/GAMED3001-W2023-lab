@@ -80,7 +80,7 @@ void StarShip::SetAcceletaionRate(const float rate)
 void StarShip::SetDesiredVelocity(glm::vec2 target_position)
 {
 	SetTargetPosition(target_position);
-	m_desiredVelocity = Util::Normalize(target_position - GetTransform()->position) * GetMaxSpeed();
+	m_desiredVelocity = Util::Normalize(target_position - GetTransform()->position) ;
 	GetRigidBody()->velocity = m_desiredVelocity - GetRigidBody()->velocity;
 }
 
@@ -113,6 +113,15 @@ void StarShip::LookWhereYoureGoing(glm::vec2 target_direction)
 void StarShip::m_move()
 {
 	seek();
+	// maybe switch case
+
+	//switch(behaviour)
+	//case (seek)
+	//case(arrive)
+	//case(flee)
+	//case(avoidance)
+
+
  	//                    final pos  position term    velocity         acceleration term
  	//kinematic equation-> pf      = pi +             vi * (time) + (0.5)* ai * (time *time)
 	const float dt = Game::Instance().GetDeltaTime();
@@ -131,8 +140,11 @@ void StarShip::m_move()
 
 	GetTransform()->position = final_position;
 
-	//add our acceleration
+	
+	//add our acceleration to velocity
 	GetRigidBody()->velocity += GetRigidBody()->acceleration;
+
+	
 
 	//clamp our velocity at max speed
 	GetRigidBody()->velocity = Util::Clamp(GetRigidBody()->velocity, GetMaxSpeed());
