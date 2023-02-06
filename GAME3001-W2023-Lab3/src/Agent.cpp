@@ -11,6 +11,7 @@ Agent::Agent()
 	m_lineColour[3] = glm::vec4(0, 1, 0, 1);//green
 	m_lineColour[4] = glm::vec4(0, 1, 0, 1);//green
 
+
 	//initialize the whisker collision booleans
 	m_collisionWhiskers[0] = false;
 	m_collisionWhiskers[1] = false;
@@ -156,10 +157,12 @@ void Agent::UpdateWhiskers(const float angle)
 	 y = cos((GetCurrentHeading() - m_whiskerAngle + 60.0f) * Util::Deg2Rad);
 	SetLeftLeftEndPoint(GetTransform()->position + glm::vec2(x, -y) * GetLOSDistance() * 0.75f);
 
+
 	//Right whisker
 	 x = sin((GetCurrentHeading() + m_whiskerAngle + 90.0f) * Util::Deg2Rad);
 	 y = cos((GetCurrentHeading() + m_whiskerAngle + 90.0f) * Util::Deg2Rad);
 	SetRightEndPoint(GetTransform()->position + glm::vec2(x, -y) * GetLOSDistance() * 0.75f);
+
 
 	//Right Right
 	x = sin((GetCurrentHeading() + m_whiskerAngle + 120.0f) * Util::Deg2Rad);
