@@ -81,6 +81,110 @@ void PlayScene::Start()
 	ImGuiWindowFrame::Instance().SetGuiFunction(std::bind(&PlayScene::GUI_Function, this));
 }
 
+void PlayScene::m_buildGrid()
+{
+	const auto tile_size = Config::TILE_SIZE;
+
+	// layout a grid of tiles (20 x 15)
+	for(int row = 0 ;row < Config::ROW_NUM;++row)
+	{
+		for (int col = 0 ; col < Config::COL_NUM;++col)
+		{
+			Tile* tile = new Tile();
+			tile->GetTransform()->position = glm::vec2(col * tile_size, row * tile_size);
+			tile->GetGridPosition(col,row);
+			tile->SetParent(this);
+			tile->AddLabels();
+			AddChild(tile);
+			tile->SetEnabled(false);
+			m_pGrid.push_back(tile);
+		}
+	}
+
+	// setup the neighbour refrences for each tile in the grid
+	// tiles = nodes in our graph
+	for (int row = 0; row < Config::ROW_NUM; ++row)
+	{
+		for (int col = 0; col < Config::COL_NUM; ++col)
+		{
+			Tile* tile = m_GetTile(col, row);
+
+			// top most Neighbour
+			if(row == 0)
+			{
+				tile->SetNeighbourTile(TOP_TILE, nullptr);
+			}
+			else
+			{
+				tile->SetNeighbourTile(TOP_TILE, m_GetTile(col, row - 1));
+			}
+
+			// right most Neighbour
+			if(col == Config::COL_NUM - 1)
+			{
+				tile->SetNeighbourTile(RIGHT_TILE, nullptr);
+			}
+			else
+			{
+				tile->SetNeighbourTile(RIGHT_TILE, m_GetTile(col + 1, row));
+;			}
+
+			// botom most Neighbour
+			if (row == Config::ROW_NUM - 1)
+			{
+				tile->SetNeighbourTile(BOTTOM_TILE, nullptr);
+			}
+			else
+			{
+				tile->SetNeighbourTile(BOTTOM_TILE, m_GetTile(col, row + 1));
+			}
+
+			// left most Neighbour
+			if (col == 0)
+			{
+				tile->SetNeighbourTile(LEFT_TILE, nullptr);
+			}
+			else
+			{
+				tile->SetNeighbourTile(LEFT_TILE, m_GetTile(col - 1, row));
+				;
+			}
+		}
+	}
+}
+
+bool PlayScene::m_getGridEnable() const
+{
+	return m_isGridEnabled;
+}
+
+void PlayScene::m_setGridEnabled(bool state)
+{
+	m_isGridEnabled = state;
+	for (auto tile : m_pGrid)
+	{
+		tile->SetEnabled(m_isGridEnabled); // toggle each tile object
+		tile->SetlabelsEnabled(m_isGridEnabled); // toggles each label object within the tile
+	}
+}
+
+void PlayScene::m_computeTileCost()
+{
+	// for next lab (4b)
+}
+
+Tile* PlayScene::m_GetTile(int col, int row) const
+{
+	return m_pGrid[(row * Config::COL_NUM) + col];
+}
+
+Tile* PlayScene::m_getTile(const glm::vec2 grid_position) const
+{
+	const auto col = grid_position.x;
+	const auto row = grid_position.y;
+	return m_GetTile(col, row);
+}
+
 void PlayScene::GUI_Function()
 {
 	// Always open with a NewFrame
@@ -121,3 +225,5 @@ void PlayScene::GUI_Function()
 	
 	ImGui::End();
 }
+
+
