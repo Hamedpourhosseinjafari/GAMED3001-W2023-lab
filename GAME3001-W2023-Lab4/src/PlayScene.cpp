@@ -59,16 +59,24 @@ void PlayScene::Start()
 {
 	// Set GUI Title
 	m_guiTitle = "Play Scene";
-	m_bDebugView = false; // turn off debug colliders
+
+	m_buildGrid(); // construct a grid of connected tiles
+
+	m_setGridEnabled(true);
+	auto offset = glm::vec2(Config::TILE_SIZE * 0.5f, Config::TILE_SIZE * 0.5f);
 
 	// Add the Target to the Scene
 	m_pTarget = new Target(); // instantiate an object of type Target
-	m_pTarget->GetTransform()->position = glm::vec2(640.0f, 300.0f);
+	m_pTarget->GetTransform()->position = m_GetTile(15, 11)->GetTransform()->position + offset;
+	m_pTarget->SetGridPosition(15.0f, 11.0f);
+	m_GetTile(15, 11)->SetTileStatus(GOAL);
 	AddChild(m_pTarget);
 
 	// Add the StarShip to the Scene
 	m_pStarShip = new StarShip();
-	m_pStarShip->GetTransform()->position = glm::vec2(100.0f, 300.0f);
+	m_pStarShip->GetTransform()->position = m_GetTile(1, 3)->GetTransform()->position + offset;
+	m_pStarShip->SetGridPosition(1.0f, 3.0f);
+	m_GetTile(1, 3)->SetTileStatus(START);
 	AddChild(m_pStarShip);
 
 	
@@ -92,7 +100,7 @@ void PlayScene::m_buildGrid()
 		{
 			Tile* tile = new Tile();
 			tile->GetTransform()->position = glm::vec2(col * tile_size, row * tile_size);
-			tile->GetGridPosition(col,row);
+			tile->SetGridPosition(col,row);
 			tile->SetParent(this);
 			tile->AddLabels();
 			AddChild(tile);
@@ -173,12 +181,12 @@ void PlayScene::m_computeTileCost()
 	// for next lab (4b)
 }
 
-Tile* PlayScene::m_GetTile(int col, int row) const
+Tile* PlayScene::m_GetTile(const int col, int row) const
 {
 	return m_pGrid[(row * Config::COL_NUM) + col];
 }
 
-Tile* PlayScene::m_getTile(const glm::vec2 grid_position) const
+Tile* PlayScene::m_getTile (const glm::vec2 grid_position) const
 {
 	const auto col = grid_position.x;
 	const auto row = grid_position.y;
@@ -187,6 +195,8 @@ Tile* PlayScene::m_getTile(const glm::vec2 grid_position) const
 
 void PlayScene::GUI_Function()
 {
+	auto offset = glm::vec2(Config::TILE_SIZE * 0.5f, Config::TILE_SIZE * 0.5f);
+
 	// Always open with a NewFrame
 	ImGui::NewFrame();
 
@@ -198,20 +208,55 @@ void PlayScene::GUI_Function()
 	ImGui::Separator();
 
 	// Debug Properties
-	static bool toggleDebug = false;
-	if(ImGui::Checkbox("Toggle Debug View", &toggleDebug))
+	static bool toggle_grid = false;
+	if(ImGui::Checkbox("Toggle Debug Grid", &toggle_grid))
 	{
-		m_bDebugView = toggleDebug;
+		m_bDebugView = toggle_grid;
+		m_setGridEnabled(m_isGridEnabled);
 	}
 
 	ImGui::Separator();
+
    // starship porperties
+	static int start_position[2] = {
+		static_cast<int> (m_pStarShip->GetGridPosition().x),
+		static_cast<int> (m_pStarShip->GetGridPosition().y)
+	};
+	if(ImGui::SliderInt2("start pos",start_position,0,Config::COL_NUM -1))
+	{
+		if (start_position[1] > Config::ROW_NUM -1)
+		{
+			start_position[1] = Config::ROW_NUM - 1;
+		}
+	}
+
+	//
+	m_getTile(m_pStarShip->GetGridPosition())->SetTileStatus(UNVISITED);
+	m_pStarShip->GetTransform()->position = m_GetTile(start_position[0], start_position[1])->GetTransform()->position + offset;
+	m_pStarShip->SetGridPosition(start_position[0], start_position[1]);
+	m_getTile(m_pStarShip->GetGridPosition())->SetTileStatus(START);
 
 	// Target Properties
 	
 	ImGui::Separator();
 
-	
+		static int goal_position[2] = {
+		static_cast<int> (m_pTarget->GetGridPosition().x),
+		static_cast<int> (m_pTarget->GetGridPosition().y)
+	};
+	if(ImGui::SliderInt2("goal pos", goal_position,0,Config::COL_NUM -1))
+	{
+		if (goal_position[1] > Config::ROW_NUM -1)
+		{
+			goal_position[1] = Config::ROW_NUM - 1;
+		}
+	}
+
+	//
+	m_getTile(m_pTarget->GetGridPosition())->SetTileStatus(UNVISITED);
+	m_pTarget->GetTransform()->position = m_GetTile(goal_position[0], goal_position[1])->GetTransform()->position + offset;
+	m_pTarget->SetGridPosition(goal_position[0], goal_position[1]);
+	m_getTile(m_pTarget->GetGridPosition())->SetTileStatus(GOAL);
 
 	ImGui::Separator();
 

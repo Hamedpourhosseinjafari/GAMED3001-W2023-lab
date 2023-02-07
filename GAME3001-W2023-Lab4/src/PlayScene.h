@@ -45,7 +45,7 @@ private:
 
 	//convenience functions to convert from world space to grid space
 	Tile* m_GetTile(int col, int row)const;
-	Tile* m_getTile(glm::vec2 grid_position);
+	Tile* m_getTile(glm::vec2 grid_position) const;
 
 	//heuristic
 	// well add this in later(lab 4b)
