@@ -44,7 +44,8 @@ private:
 	void m_computeTileCosts() const;
 
 	//obstacle array
-	Obstacle* m_pObstacles[25];
+	Obstacle* m_pObstacles[26];
+	void m_addImpassableObjectsToGrid();
 
 	template <typename T>
 	T* m_addNavigationObjectToGrid(T* object, int col, int row, TileStatus status);

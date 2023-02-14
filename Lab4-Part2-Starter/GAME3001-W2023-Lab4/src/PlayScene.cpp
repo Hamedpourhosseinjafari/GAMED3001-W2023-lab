@@ -68,6 +68,9 @@ void PlayScene::Start()
 	// Add the StarShip to the Scene
 	m_pStarShip = m_addNavigationObjectToGrid(m_pStarShip, 1, 3, TileStatus::START);
 
+	// add Impassable Objects
+	m_addImpassableObjectsToGrid();
+
 	// Preload Sounds
 
 	SoundManager::Instance().Load("../Assets/Audio/yay.ogg", "yay", SoundType::SOUND_SFX);
@@ -190,6 +193,37 @@ void PlayScene::m_computeTileCosts() const
 		}
 		tile->SetTileCost(distance);
 	}
+}
+
+void PlayScene::m_addImpassableObjectsToGrid()
+{
+	for (int i = 0; i < 8;++i)
+	{
+		m_addNavigationObjectToGrid(m_pObstacles[i], 9, i, TileStatus::IMPASSABLE);
+	}
+
+	m_addNavigationObjectToGrid(m_pObstacles[8], 5, 6, TileStatus::IMPASSABLE);
+	m_addNavigationObjectToGrid(m_pObstacles[9], 5, 7, TileStatus::IMPASSABLE);
+	m_addNavigationObjectToGrid(m_pObstacles[10], 5, 8, TileStatus::IMPASSABLE);
+	m_addNavigationObjectToGrid(m_pObstacles[11], 5, 9, TileStatus::IMPASSABLE);
+	m_addNavigationObjectToGrid(m_pObstacles[12], 5, 10, TileStatus::IMPASSABLE);
+	m_addNavigationObjectToGrid(m_pObstacles[13], 5, 11, TileStatus::IMPASSABLE);
+	m_addNavigationObjectToGrid(m_pObstacles[14], 5, 12, TileStatus::IMPASSABLE);
+	m_addNavigationObjectToGrid(m_pObstacles[15], 5, 13, TileStatus::IMPASSABLE);
+	m_addNavigationObjectToGrid(m_pObstacles[16], 5, 14, TileStatus::IMPASSABLE);
+
+
+	m_addNavigationObjectToGrid(m_pObstacles[17], 13, 6, TileStatus::IMPASSABLE);
+	m_addNavigationObjectToGrid(m_pObstacles[18], 13, 7, TileStatus::IMPASSABLE);
+	m_addNavigationObjectToGrid(m_pObstacles[19], 13, 8, TileStatus::IMPASSABLE);
+	m_addNavigationObjectToGrid(m_pObstacles[20], 13, 9, TileStatus::IMPASSABLE);
+	m_addNavigationObjectToGrid(m_pObstacles[21], 13, 10, TileStatus::IMPASSABLE);
+	m_addNavigationObjectToGrid(m_pObstacles[22], 13, 11, TileStatus::IMPASSABLE);
+	m_addNavigationObjectToGrid(m_pObstacles[23], 13, 12, TileStatus::IMPASSABLE);
+	m_addNavigationObjectToGrid(m_pObstacles[24], 13, 13, TileStatus::IMPASSABLE);
+	m_addNavigationObjectToGrid(m_pObstacles[25], 13, 14, TileStatus::IMPASSABLE);
+
+
 }
 
 template <typename T>
