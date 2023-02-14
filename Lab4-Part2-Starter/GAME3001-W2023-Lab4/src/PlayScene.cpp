@@ -60,24 +60,13 @@ void PlayScene::Start()
 
 	m_buildGrid(); // construct a Grid of connected tiles
 
-	auto offset = glm::vec2(Config::TILE_SIZE * 0.5f, Config::TILE_SIZE * 0.5f);
-
 	m_currebtHeuristic = Heuristic::MANHATTAN;
 
 	// Add the Target to the Scene
-	m_pTarget = new Target(); // instantiate an object of type Target
-	m_pTarget->GetTransform()->position = m_getTile(15, 11)->GetTransform()->position + offset;
-	m_pTarget->SetGridPosition(15.0f, 11.0f); // record grid space position
-	m_getTile(15, 11)->SetTileStatus(TileStatus::GOAL);
-	AddChild(m_pTarget);
+	m_pTarget = m_addNavigationObjectToGrid(m_pTarget, 15, 11, TileStatus::GOAL);
 
 	// Add the StarShip to the Scene
-	m_pStarShip = new StarShip();
-	m_pStarShip->GetTransform()->position = m_getTile(1, 3)->GetTransform()->position + offset;
-	m_pStarShip->SetGridPosition(1.0f, 3.0f); // record grid space position
-	m_getTile(1, 3)->SetTileStatus(TileStatus::START);
-	AddChild(m_pStarShip);
-
+	m_pStarShip = m_addNavigationObjectToGrid(m_pStarShip, 1, 3, TileStatus::START);
 
 	// Preload Sounds
 
@@ -203,10 +192,23 @@ void PlayScene::m_computeTileCosts() const
 	}
 }
 
+template <typename T>
+T* PlayScene::m_addNavigationObjectToGrid(T* object, int col, int row, const TileStatus status)
+{
+	auto offset = glm::vec2(Config::TILE_SIZE * 0.5f, Config::TILE_SIZE * 0.5f);
+	// Add the T type object to the Scene
+	object = new T(); // instantiate an object of type T
+	object->GetTransform()->position = m_getTile(col, row)->GetTransform()->position + offset;
+	object->SetGridPosition(col, row); // record grid space position
+	m_getTile(col, row)->SetTileStatus(status);
+	AddChild(object);
+	return object;
+}
 Tile* PlayScene::m_getTile(const int col, const int row) const
 {
 	return m_pGrid[(row * Config::COL_NUM) + col];
 }
+
 
 Tile* PlayScene::m_getTile(const glm::vec2 grid_position) const
 {
