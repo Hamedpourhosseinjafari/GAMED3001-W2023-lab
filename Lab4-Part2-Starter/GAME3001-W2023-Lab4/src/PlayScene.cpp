@@ -238,6 +238,11 @@ T* PlayScene::m_addNavigationObjectToGrid(T* object, int col, int row, const Til
 	AddChild(object);
 	return object;
 }
+
+void PlayScene::m_findShortestPath()
+{
+}
+
 Tile* PlayScene::m_getTile(const int col, const int row) const
 {
 	return m_pGrid[(row * Config::COL_NUM) + col];

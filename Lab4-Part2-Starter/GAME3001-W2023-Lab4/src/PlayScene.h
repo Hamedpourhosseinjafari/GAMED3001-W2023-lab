@@ -50,6 +50,18 @@ private:
 	template <typename T>
 	T* m_addNavigationObjectToGrid(T* object, int col, int row, TileStatus status);
 
+	// collections for pathfinding
+	std::vector<Tile*> m_pOpenList; // visited but not expanded(not all child nodes have been visited)
+	std::vector<Tile*> m_pCloseList; // visited and expanded
+	// TODO: find some kind of data structure for path following (pathlist)
+	// suggestion:  a queue for linked list
+
+	// pathfinding functions
+	void m_findShortestPath();
+	void m_displayPathList();
+	void m_resetPathFinding();
+	void m_resetSimulation();
+
 	// convenience functions to convert from world space to grid space
 	Tile* m_getTile(int col, int row) const;
 	Tile* m_getTile(glm::vec2 grid_position) const;
