@@ -560,12 +560,12 @@ void PlayScene::m_moveObj()
 {
 	//while (m_pStarShip->GetGridPosition()!=m_pTarget->GetGridPosition())
 	//{
-	if (m_pStarShip->GetGridPosition() != m_pTarget->GetGridPosition())
+	if(m_pStarShip->GetGridPosition() != m_pTarget->GetGridPosition())
 	{
 		m_findShortestPath();
 		m_pPathList.pop_front();
 		m_moveGameObject(m_pStarShip, (m_pPathList.front()->GetGridPosition().x), m_pPathList.front()->GetGridPosition().y, TileStatus::START);
-	}
+		}
 	//}
 	//m_pPathList.pop_front();
 		//m_moveGameObject(m_pStarShip, (m_pPathList.front()->GetGridPosition().x) , m_pPathList.front()->GetGridPosition().y, TileStatus::START);
@@ -590,21 +590,21 @@ Tile* PlayScene::m_getTile(const glm::vec2 grid_position) const
 
 void PlayScene::m_initializeTileMap()
 {
-	m_tileMap =  "---------I----------";
-	m_tileMap += "---------I----------";
-	m_tileMap += "---------I----------";
-	m_tileMap += "--S------I----------";
-	m_tileMap += "---------I----------";
-	m_tileMap += "---------I----------";
-	m_tileMap += "-----I---I---I------";
-	m_tileMap += "-----I-------I------";
-	m_tileMap += "-----I-------I------";
-	m_tileMap += "-----I-------I------";
-	m_tileMap += "-----I-------I------";
-	m_tileMap += "-----I-------I-G----";
-	m_tileMap += "-----I-------I------";
-	m_tileMap += "-----I-------I------";
-	m_tileMap += "-----I-------I------";
+	m_tileMap =  "-----I----I---------";
+	m_tileMap += "-----I----I---------";
+	m_tileMap += "-----I----I---------";
+	m_tileMap += "--S--I----I---------";
+	m_tileMap += "-----I----I---------";
+	m_tileMap += "-----I----I---------";
+	m_tileMap += "---I-I----I-I-------";
+	m_tileMap += "---I-I----I-I-------";
+	m_tileMap += "---I-I----I-I-------";
+	m_tileMap += "---I-I----I-I-------";
+	m_tileMap += "---I-I------I-------";
+	m_tileMap += "---I----I---I-G-----";
+	m_tileMap += "---I----I---I-------";
+	m_tileMap += "---I----I---I-------";
+	m_tileMap += "---I----I---I-------";
 }
 
 void PlayScene::m_buildTileMap()
