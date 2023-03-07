@@ -4,6 +4,7 @@
 
 
 #include "Obstacle.h"
+#include "PathNode.h"
 #include "Scene.h"
 #include "StarShip.h"
 #include "Target.h"
@@ -36,16 +37,19 @@ private:
 	bool m_bDebugView;
 	bool m_isGridEnabled;
 
-	void m_buildGrid();
 
 
 	// obstacle list
 	std::vector<Obstacle*> m_pObstacles;
-	void m_buildObstacles();
+	void BuildObstaclePool();
 
-
-
-
+	// division scheme
+	std::vector<PathNode*> m_pGrid;
+	void m_buildGrid();
+	void m_toggleGrid(bool state) const;
+	void m_clearNodes();
+	//LOS functions
+	void m_checkShipLOS(DisplayObject* target_object) const;
 
 };
 
