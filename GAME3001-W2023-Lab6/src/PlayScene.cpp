@@ -117,7 +117,7 @@ void PlayScene::GUI_Function()
 	ImGui::Separator();
 
 	// StarShip Properties
-	if(ImGui::SliderInt2("starship Position", start_position, 0, 800))
+	if(ImGui::SliderInt2("starShip Position", start_position, 0, 800))
 	{
 		m_pStarShip->GetTransform()->position.x = static_cast<float>(start_position[0]);
 		m_pStarShip->GetTransform()->position.y = static_cast<float>(start_position[1]);
