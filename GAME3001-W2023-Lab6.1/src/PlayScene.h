@@ -2,6 +2,7 @@
 #ifndef __PLAY_SCENE__
 #define __PLAY_SCENE__
 
+#include "LOSMode.h"
 #include "Obstacle.h"
 #include "Scene.h"
 #include "Target.h"
@@ -52,6 +53,8 @@ private:
 
 
 	//LOS variables
+	LOSMode m_LOSMode{};
+	int m_pathNodeLOSDistance;
 
 	// Debugging Variables
 	bool m_bDebugView;
