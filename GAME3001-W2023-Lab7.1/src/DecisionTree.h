@@ -43,7 +43,7 @@ private:
 	Agent* m_agent{};
 	LOSCondition* m_LOSNode{};
 	RadiusCondition* m_RadiusNode{};
-	CloseCombatCondition* m_CloseCombatCondition{};
+	CloseCombatCondition* m_CloseCombatNode{};
 	//tree node list
 	std::vector<TreeNode*> m_treeNodeList;
 	//private methods

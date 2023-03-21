@@ -6,6 +6,7 @@
 
 class CloseCombatCondition : public ConditionNode
 {
+public:
 	CloseCombatCondition(bool within_combat_range = false);
 	virtual ~CloseCombatCondition();
 

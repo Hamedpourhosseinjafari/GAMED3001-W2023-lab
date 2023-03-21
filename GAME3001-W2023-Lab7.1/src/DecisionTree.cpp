@@ -43,7 +43,7 @@ RadiusCondition* DecisionTree::GetRadiusNode() const
 
 CloseCombatCondition* DecisionTree::GetCloseCombatNode() const
 {
-	return m_closeCombatNode;
+	return m_CloseCombatNode;
 }
 
 TreeNode* DecisionTree::AddNode(TreeNode* parent, TreeNode* child_node, TreeNodeType type)
@@ -109,7 +109,7 @@ void DecisionTree::m_buildtree()
 	// condition
 
 	//create and add the root node
-	m_LOSNode = new LOSCondition;
+	m_LOSNode = new LOSCondition();
 	m_treeNodeList.push_back(m_LOSNode);
 
 	m_RadiusNode = new RadiusCondition();

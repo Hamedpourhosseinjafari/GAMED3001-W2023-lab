@@ -50,6 +50,8 @@ void PlayScene::Update()
 		m_checkAllNodesWithBoth();
 		break;
 	}
+	// make a decision
+	m_decisionTree->MakeDecision();
 }
 
 void PlayScene::Clean()
@@ -80,7 +82,7 @@ void PlayScene::HandleEvents()
 void PlayScene::Start()
 {
 	// Set GUI Title
-	m_guiTitle = "Play Scene";
+	m_guiTitle = "Lab-7 - part1";
 
 	// Setup a few more fields
 	m_LOSMode = LOSMode::TARGET;
@@ -88,6 +90,8 @@ void PlayScene::Start()
 	m_setPathNodeLOSDistance(m_pathNodeLOSDistance);
 
 	// Add Game Objects
+	m_pBackGround = new Background();
+	AddChild(m_pBackGround, 0);
 	m_pTarget = new Target();
 	m_pTarget->GetTransform()->position = glm::vec2(550.0f, 300.0f);
 	AddChild(m_pTarget, 2);
@@ -104,10 +108,21 @@ void PlayScene::Start()
 	m_buildGrid();
 	m_toggleGrid(m_isGridEnabled);
 
+	//create decision tree
+	m_decisionTree = new DecisionTree(m_pStarShip);
+	m_decisionTree->Display();//optional
+	m_decisionTree->MakeDecision();//patrol
+
 	// Preload Sounds
 
 	SoundManager::Instance().Load("../Assets/Audio/yay.ogg", "yay", SoundType::SOUND_SFX);
 	SoundManager::Instance().Load("../Assets/Audio/thunder.ogg", "thunder", SoundType::SOUND_SFX);
+
+	// preload music
+	SoundManager::Instance().Load("../Assets//audio/mutara.mp3", "mutara", SoundType::SOUND_MUSIC);
+	SoundManager::Instance().SetMusicVolume(16);
+
+	SoundManager::Instance().PlayMusic("mutara");
 
 	ImGuiWindowFrame::Instance().SetGuiFunction(std::bind(&PlayScene::GUI_Function, this));
 }
