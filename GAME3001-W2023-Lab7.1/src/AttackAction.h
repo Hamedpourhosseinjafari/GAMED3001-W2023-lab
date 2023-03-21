@@ -3,7 +3,7 @@
 #define __ATTACK__ACTION__
 #include "ActionNode.h"
 
-class PatrolAction : public ActionNode
+class AttackAction : public ActionNode
 {
 public:
 	AttackAction();

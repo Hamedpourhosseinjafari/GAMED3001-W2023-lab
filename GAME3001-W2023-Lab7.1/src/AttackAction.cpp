@@ -1,14 +1,14 @@
 #include "AttackAction.h"
 #include <iostream>
 
-AttackAction::PatrolAction()
+AttackAction::AttackAction()
 {
 	m_name = "patrol Action";
-}Attack
+}
 AttackAction::~AttackAction()
 = default;
 
-void PatrolAction::Action()
+void AttackAction::Action()
 {
 	if (GetAgent()->GetActionState() != ActionState::PATROL)
 	{
