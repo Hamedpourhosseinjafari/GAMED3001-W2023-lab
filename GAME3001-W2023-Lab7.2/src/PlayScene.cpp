@@ -37,9 +37,8 @@ void PlayScene::Draw()
 void PlayScene::Update()
 {
 	UpdateDisplayList();
-	// TODO: replace this with checkLOSToTarget
-	m_checkAgentLOS(m_pStarShip, m_pTarget);
-	// m_pStarShip->GetTree()->GetLOSNode()->SetLOS(m_pStarShip->CheckAgentLOSToTarget(m_pTarget,m_pObstacles));
+
+	m_pStarShip->GetTree()->GetLOSNode()->SetLOS(m_pStarShip->CheckAgentLOSToTarget(m_pTarget,m_pObstacles));
 	switch(m_LOSMode)
 	{
 	case LOSMode::TARGET:
@@ -99,7 +98,8 @@ void PlayScene::Start()
 	m_pTarget->GetTransform()->position = glm::vec2(500.0f, 300.0f);
 	AddChild(m_pTarget, 2);
 
-	m_pStarShip = new StarShip();
+	//m_pStarShip = new CloseCombatEnemy();
+	m_pStarShip = new RangedCombatEnemy();
 	m_pStarShip->GetTransform()->position = glm::vec2(400.0f, 40.0f);
 	AddChild(m_pStarShip, 2);
 
@@ -118,11 +118,12 @@ void PlayScene::Start()
 	SoundManager::Instance().Load("../Assets/Audio/thunder.ogg", "thunder", SoundType::SOUND_SFX);
 
 	// Preload Music
+	SoundManager::Instance().Load("../Assets/Audio/klingon.mp3", "klingon", SoundType::SOUND_MUSIC);
 	SoundManager::Instance().Load("../Assets/Audio/Mutara.mp3", "mutara", SoundType::SOUND_MUSIC);
 	SoundManager::Instance().SetMusicVolume(16);
 
 	// Play Music
-	SoundManager::Instance().PlayMusic("mutara");
+	SoundManager::Instance().PlayMusic("klingon");
 
 	ImGuiWindowFrame::Instance().SetGuiFunction(std::bind(&PlayScene::GUI_Function, this));
 }
