@@ -37,7 +37,9 @@ void PlayScene::Draw()
 void PlayScene::Update()
 {
 	UpdateDisplayList();
+	// TODO: replace this with checkLOSToTarget
 	m_checkAgentLOS(m_pStarShip, m_pTarget);
+	// m_pStarShip->GetTree()->GetLOSNode()->SetLOS(m_pStarShip->CheckAgentLOSToTarget(m_pTarget,m_pObstacles));
 	switch(m_LOSMode)
 	{
 	case LOSMode::TARGET:
