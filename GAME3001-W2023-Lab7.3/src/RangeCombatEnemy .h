@@ -38,6 +38,15 @@ public:
 	// new for lab 7.2
 	void Patrol() override;
 	void MoveToRange() override;
+	
+
+	// new for lab 7.3
+	void Flee() override;
+	void MoveToLOS() override;
+	void MoveToCover() override;
+	void WaitBehindCover() override;;
+	void Attack() override;
+	// get reference to tree
 	[[nodiscard]] DecisionTree* GetTree() const;
 
 private:
