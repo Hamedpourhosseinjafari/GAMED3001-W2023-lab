@@ -1,20 +1,20 @@
 #include "RangedCombatCondition.h"
 
-RangedCombatEnemy::RangedCombatEnemy(const bool within_combat_range)
+RangedCombatCondition::RangedCombatCondition(const bool within_combat_range)
 {
 	m_name = "Ranged Combat Condition";
 	SetIsWithinCombatRange(within_combat_range);
 }
 
-RangedCombatEnemy::~RangedCombatEnemy()
+RangedCombatCondition::~RangedCombatCondition()
 = default;
 
-void RangedCombatEnemy::SetIsWithinCombatRange(const bool state)
+void RangedCombatCondition::SetIsWithinCombatRange(const bool state)
 {
 	m_isWithinCombatRange = state;
 }
 
-bool RangedCombatEnemy::Condition()
+bool RangedCombatCondition::Condition()
 {
 	return m_isWithinCombatRange;
 }

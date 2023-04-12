@@ -4,11 +4,11 @@
 
 #include "ConditionNode.h"
 
-class RangedCombatEnemy : public ConditionNode
+class RangedCombatCondition : public ConditionNode
 {
 public:
-	RangedCombatEnemy(bool within_combat_range = false);
-	virtual ~RangedCombatEnemy();
+	RangedCombatCondition(bool within_combat_range = false);
+	virtual ~RangedCombatCondition();
 
 	// Setter
 	void SetIsWithinCombatRange(bool state);

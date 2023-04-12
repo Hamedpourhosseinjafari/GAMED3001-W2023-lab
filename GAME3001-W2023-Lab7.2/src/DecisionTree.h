@@ -4,6 +4,7 @@
 
 #include "Agent.h"
 #include "CloseCombatCondition.h"
+#include "RangedCombatCondition.h"
 #include "LOSCondition.h"
 #include "RadiusCondition.h"
 #include "TreeNode.h"
@@ -30,6 +31,13 @@ public:
 	[[nodiscard]] RadiusCondition* GetRadiusNode() const;
 	[[nodiscard]] CloseCombatCondition* GetCloseCombatNode() const;
 
+	// new for lab 7.2
+	std::vector<TreeNode*>& GetTree();
+	void SetLOSNode(LOSCondition* node);
+	void SetRadiusNode(RadiusCondition* node);
+	void SetCloseCombatNode(CloseCombatCondition* node);
+	void SetRangedCombatNode(RangedCombatCondition* node);
+
 	// Public Utility / Convenience functions
 	TreeNode* AddNode(TreeNode* parent, TreeNode* child_node, TreeNodeType type);
 
@@ -46,6 +54,9 @@ private:
 	LOSCondition* m_LOSNode{};
 	RadiusCondition* m_RadiusNode{};
 	CloseCombatCondition* m_CloseCombatNode{};
+
+	// new 7.2
+	RangedCombatCondition* m_RangedCombatNode{};
 
 	// Tree Node List
 	std::vector<TreeNode*> m_treeNodeList;
