@@ -4,7 +4,7 @@
 
 MoveToLOSAction::MoveToLOSAction()
 {
-	m_name = "MOVEtoLOSaction Action";
+	m_name = "Move To LOS Action";
 }
 
 MoveToLOSAction::~MoveToLOSAction()
@@ -12,9 +12,9 @@ MoveToLOSAction::~MoveToLOSAction()
 
 void MoveToLOSAction::Action()
 {
-	if (GetAgent()->GetActionState() != ActionState::PATROL)
+	if(GetAgent()->GetActionState() != ActionState::MOVE_TO_LOS)
 	{
-		std::cout << "performing" << m_name << std::endl;
-		GetAgent()->SetActionState(ActionState::PATROL);
+		std::cout << "Performing " << m_name << std::endl;
+		GetAgent()->SetActionState(ActionState::MOVE_TO_LOS);
 	}
 }

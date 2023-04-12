@@ -1,14 +1,15 @@
 #include "CloseCombatCondition.h"
 
-CloseCombatCondition::CloseCombatCondition(bool within_combat_range)
+CloseCombatCondition::CloseCombatCondition(const bool within_combat_range)
 {
-	m_name = "close combat condition";
-	SetIsWhithinCombatRange(within_combat_range);
+	m_name = "Close Combat Condition";
+	SetIsWithinCombatRange(within_combat_range);
 }
 
 CloseCombatCondition::~CloseCombatCondition()
 = default;
-void CloseCombatCondition::SetIsWhithinCombatRange(const bool state)
+
+void CloseCombatCondition::SetIsWithinCombatRange(const bool state)
 {
 	m_isWithinCombatRange = state;
 }

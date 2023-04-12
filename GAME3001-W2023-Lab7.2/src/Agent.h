@@ -32,10 +32,13 @@ public:
 	[[nodiscard]] glm::vec2 GetRightRightLOSEndPoint() const;
 
 	bool* GetCollisionWhiskers(); // Returns the entire array
-	glm::vec4 GetLineColour(int index) const;
-	float GetWhiskerAngle() const;
+	[[nodiscard]] glm::vec4 GetLineColour(int index) const;
+	[[nodiscard]] float GetWhiskerAngle() const;
 
+	// New for Lab 7.1
 	[[nodiscard]] ActionState GetActionState() const;
+	void SetActionState(ActionState state);
+
 	// setters
 	void SetTargetPosition(glm::vec2 new_position);
 	void SetCurrentDirection(glm::vec2 new_direction);
@@ -53,8 +56,6 @@ public:
 
 	void SetLineColour(int index, glm::vec4 colour);
 	void SetWhiskerAngle(float angle);
-
-	void SetActionState(ActionState state);
 
 	// utility function
 	void UpdateWhiskers(float angle);
@@ -80,8 +81,8 @@ private:
 	bool m_collisionWhiskers[5];
 	float m_whiskerAngle;
 
-	// action state
-	ActionState m_state;
+	// New for Lab 7.1
+	ActionState m_actionState;
 
 };
 

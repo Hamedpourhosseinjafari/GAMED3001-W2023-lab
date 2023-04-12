@@ -1,14 +1,14 @@
 #include "LOSCondition.h"
 
-
-LOSCondition::LOSCondition(bool LOS)
+LOSCondition::LOSCondition(const bool LOS)
 {
-	m_name = "close combat condition";
+	m_name = "LOS Condition";
 	SetLOS(LOS);
 }
 
 LOSCondition::~LOSCondition()
 = default;
+
 void LOSCondition::SetLOS(const bool state)
 {
 	m_hasLOS = state;

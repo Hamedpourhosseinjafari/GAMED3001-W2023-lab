@@ -35,19 +35,19 @@
       <UniqueIdentifier>{dd0f8848-f6ff-41a0-a27f-16781c70a262}</UniqueIdentifier>
     </Filter>
     <Filter Include="Decision">
-      <UniqueIdentifier>{5a40b448-0a63-4dee-a897-e410c0604346}</UniqueIdentifier>
+      <UniqueIdentifier>{e4541e8c-acf2-4ec7-bab8-bfcf853ab8ac}</UniqueIdentifier>
     </Filter>
     <Filter Include="Decision\Actions">
-      <UniqueIdentifier>{08c2080d-0af0-490d-8bcb-4eca7d89db27}</UniqueIdentifier>
+      <UniqueIdentifier>{e38fbd77-31cb-41f7-af2d-e6d2d8052825}</UniqueIdentifier>
     </Filter>
     <Filter Include="Decision\Agents">
-      <UniqueIdentifier>{e53c82f0-8305-4841-8a9f-81df28adc7bc}</UniqueIdentifier>
+      <UniqueIdentifier>{1f27b600-029b-455c-b870-9452864ea714}</UniqueIdentifier>
     </Filter>
     <Filter Include="Decision\Conditions">
-      <UniqueIdentifier>{d8c15c51-4ba9-4e05-a0af-379729a226a7}</UniqueIdentifier>
+      <UniqueIdentifier>{1888f57b-7f32-4121-90f7-11b6bcf11631}</UniqueIdentifier>
     </Filter>
     <Filter Include="Decision\Core">
-      <UniqueIdentifier>{6267e824-face-4b15-bebb-ada0869571ff}</UniqueIdentifier>
+      <UniqueIdentifier>{bd537fde-83b4-45ab-8443-056ec46e68a4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -165,7 +165,10 @@
     <ClCompile Include="..\src\Agent.cpp">
       <Filter>Decision\Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\PatrolAction.cpp">
+    <ClCompile Include="..\src\Background.cpp">
+      <Filter>Game Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\AttackAction.cpp">
       <Filter>Decision\Actions</Filter>
     </ClCompile>
     <ClCompile Include="..\src\MoveToLOSAction.cpp">
@@ -174,8 +177,11 @@
     <ClCompile Include="..\src\MoveToPlayerAction.cpp">
       <Filter>Decision\Actions</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\AttackAction.cpp">
+    <ClCompile Include="..\src\PatrolAction.cpp">
       <Filter>Decision\Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\CloseCombatCondition.cpp">
+      <Filter>Decision\Conditions</Filter>
     </ClCompile>
     <ClCompile Include="..\src\LOSCondition.cpp">
       <Filter>Decision\Conditions</Filter>
@@ -183,14 +189,8 @@
     <ClCompile Include="..\src\RadiusCondition.cpp">
       <Filter>Decision\Conditions</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\CloseCombatCondition.cpp">
-      <Filter>Decision\Conditions</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\DecisionTree.cpp">
       <Filter>Decision\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Background.cpp">
-      <Filter>Game Objects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -362,7 +362,16 @@
     <ClInclude Include="..\src\LOSMode.h">
       <Filter>Enums</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\StarShip.h">
+      <Filter>Decision\Agents</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Agent.h">
+      <Filter>Decision\Core</Filter>
+    </ClInclude>
     <ClInclude Include="..\src\ActionNode.h">
+      <Filter>Decision\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ActionState.h">
       <Filter>Decision\Core</Filter>
     </ClInclude>
     <ClInclude Include="..\src\ConditionNode.h">
@@ -371,13 +380,13 @@
     <ClInclude Include="..\src\TreeNode.h">
       <Filter>Decision\Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\Agent.h">
+    <ClInclude Include="..\src\TreeNodeType.h">
       <Filter>Decision\Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\StarShip.h">
-      <Filter>Decision\Agents</Filter>
+    <ClInclude Include="..\src\Background.h">
+      <Filter>Game Objects</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\PatrolAction.h">
+    <ClInclude Include="..\src\AttackAction.h">
       <Filter>Decision\Actions</Filter>
     </ClInclude>
     <ClInclude Include="..\src\MoveToLOSAction.h">
@@ -386,11 +395,11 @@
     <ClInclude Include="..\src\MoveToPlayerAction.h">
       <Filter>Decision\Actions</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\ActionState.h">
-      <Filter>Decision\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\AttackAction.h">
+    <ClInclude Include="..\src\PatrolAction.h">
       <Filter>Decision\Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\CloseCombatCondition.h">
+      <Filter>Decision\Conditions</Filter>
     </ClInclude>
     <ClInclude Include="..\src\LOSCondition.h">
       <Filter>Decision\Conditions</Filter>
@@ -398,17 +407,8 @@
     <ClInclude Include="..\src\RadiusCondition.h">
       <Filter>Decision\Conditions</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\CloseCombatCondition.h">
-      <Filter>Decision\Conditions</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\DecisionTree.h">
       <Filter>Decision\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\TreeNodeType.h">
-      <Filter>Decision\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\Background.h">
-      <Filter>Game Objects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

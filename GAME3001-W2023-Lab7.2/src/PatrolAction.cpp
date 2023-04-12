@@ -4,7 +4,7 @@
 
 PatrolAction::PatrolAction()
 {
-	m_name = "patrol Action";
+	m_name = "Patrol Action";
 }
 
 PatrolAction::~PatrolAction()
@@ -14,7 +14,7 @@ void PatrolAction::Action()
 {
 	if(GetAgent()->GetActionState() != ActionState::PATROL)
 	{
-		std::cout << "performing" << m_name << std::endl;
+		std::cout << "Performing " << m_name << std::endl;
 		GetAgent()->SetActionState(ActionState::PATROL);
 	}
 }

@@ -15,40 +15,43 @@ class DecisionTree
 {
 public:
 	// constructor(s)
-	DecisionTree();
+	DecisionTree(); // default / empty constructor
 	DecisionTree(Agent* agent);
-	//destructor
+
+	// destructor
 	~DecisionTree();
+
 	// getters and setters
 	Agent* GetAgent() const;
 	void SetAgent(Agent* agent);
-	//condition node getters
-	LOSCondition* GetLOSNode()  const;
-	RadiusCondition* GetRadiusNode()const;
+
+	// ConditionNode Getters
+	LOSCondition* GetLOSNode() const;
+	RadiusCondition* GetRadiusNode() const;
 	CloseCombatCondition* GetCloseCombatNode() const;
 
-	// public utility methodes
+	// Public Utility / Convenience functions
 	TreeNode* AddNode(TreeNode* parent, TreeNode* child_node, TreeNodeType type);
 
-	//life cycle methods
+	// Life Cycle Functions
 	void Display() const;
-	void Update();
+	void Update() const;
 	void Clean();
 
-	//main public method
-	void MakeDecision()const;
-
+	// Main Public Method
+	void MakeDecision() const; // in-order traversal of the tree
 private:
-	//private data members
+	// Private data members
 	Agent* m_agent{};
 	LOSCondition* m_LOSNode{};
 	RadiusCondition* m_RadiusNode{};
 	CloseCombatCondition* m_CloseCombatNode{};
-	//tree node list
+
+	// Tree Node List
 	std::vector<TreeNode*> m_treeNodeList;
-	//private methods
-	void m_buildtree();
+
+	// Private Methods
+	void m_buildTree();
 };
 
-
-#endif
+#endif /* defined (__DECISION_TREE__) */

@@ -1,4 +1,3 @@
-
 #pragma once
 #ifndef __RADIUS_CONDITION__
 #define __RADIUS_CONDITION__
@@ -11,10 +10,11 @@ public:
 	RadiusCondition(bool within_radius = false);
 	virtual ~RadiusCondition();
 
-	//getters and setters
+	// Setter
 	void SetIsWithinRadius(bool state);
-	virtual bool Condition() override;;
+
+	virtual bool Condition() override;
 private:
-	bool m_isWithinRadius;
+	bool m_isWithinRadius{};
 };
-#endif
+#endif /* defined (__RADIUS_CONDITION__) */

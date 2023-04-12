@@ -1,11 +1,10 @@
 #include "MoveToPlayerAction.h"
 
-
 #include <iostream>
 
 MoveToPlayerAction::MoveToPlayerAction()
 {
-	m_name = "MoveToPlayerAction Action";
+	m_name = "Move To Player Action";
 }
 
 MoveToPlayerAction::~MoveToPlayerAction()
@@ -13,9 +12,9 @@ MoveToPlayerAction::~MoveToPlayerAction()
 
 void MoveToPlayerAction::Action()
 {
-	if (GetAgent()->GetActionState() != ActionState::PATROL)
+	if(GetAgent()->GetActionState() != ActionState::MOVE_TO_PLAYER)
 	{
-		std::cout << "performing" << m_name << std::endl;
-		GetAgent()->SetActionState(ActionState::PATROL);
+		std::cout << "Performing " << m_name << std::endl;
+		GetAgent()->SetActionState(ActionState::MOVE_TO_PLAYER);
 	}
 }

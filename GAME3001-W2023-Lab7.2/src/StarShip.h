@@ -46,7 +46,7 @@ private:
 	// private function
 	void m_move();
 
-	// new for lab 7.1
+	// New for Lab 7.1
 	std::vector<glm::vec2> m_patrolPath;
 	int m_wayPoint;
 	void m_buildPatrolPath();

@@ -1,8 +1,8 @@
 #include "RadiusCondition.h"
 
-RadiusCondition::RadiusCondition(bool within_radius)
+RadiusCondition::RadiusCondition(const bool within_radius)
 {
-	m_name = "radius condition";
+	m_name = "Radius Condition";
 	SetIsWithinRadius(within_radius);
 }
 

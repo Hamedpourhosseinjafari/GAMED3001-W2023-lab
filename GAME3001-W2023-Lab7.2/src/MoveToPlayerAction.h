@@ -1,6 +1,7 @@
 #pragma once
-#ifndef __MOVE_TO_LOS_ACTION__
-#define __MOVE_TO_LOS__ACTION__
+#ifndef __MOVE_TO_PLAYER_ACTION__
+#define __MOVE_TO_PLAYER_ACTION__
+
 #include "ActionNode.h"
 
 class MoveToPlayerAction : public ActionNode
@@ -9,6 +10,7 @@ public:
 	MoveToPlayerAction();
 	virtual ~MoveToPlayerAction();
 
-	virtual void Action() override; // define here
+	virtual void Action() override; // Define our action here
 };
-#endif
+
+#endif /* defined (__MOVE_TO_PLAYER_ACTION__) */

@@ -7,7 +7,7 @@
 StarShip::StarShip() : m_maxSpeed(20.0f),
 m_turnRate(5.0f), m_accelerationRate(2.0f), m_startPosition(glm::vec2(300.0f, 500.0f))
 {
-	TextureManager::Instance().Load("../Assets/textures/d7_small.png", "starship");
+	TextureManager::Instance().Load("../Assets/textures/ncl_small.png", "starship");
 
 	const auto size = TextureManager::Instance().GetTextureSize("starship");
 	SetWidth(static_cast<int>(size.x));
@@ -26,7 +26,7 @@ m_turnRate(5.0f), m_accelerationRate(2.0f), m_startPosition(glm::vec2(300.0f, 50
 	SetWhiskerAngle(45.0f);
 	SetLOSColour(glm::vec4(1.0f, 0.0f, 0.0f, 1.0f)); // Default LOS Colour = Red
 
-	// new for lab 7.1
+	// New for Lab 7.1
 	SetActionState(ActionState::NO_ACTION);
 	m_buildPatrolPath();
 }
@@ -47,16 +47,17 @@ void StarShip::Draw()
 
 void StarShip::Update()
 {
-	//determine which action to perform
-	switch (GetActionState())
+	// Determine which action to perform
+	switch(GetActionState())
 	{
-	case ActionState::PATROL:
+	case ActionState::ATTACK:
 		break;
 	case ActionState::MOVE_TO_LOS:
-			break;
+		break;
 	case ActionState::MOVE_TO_PLAYER:
 		break;
-	case ActionState::ATTACK:
+	case ActionState::PATROL:
+		m_move();
 		break;
 	}
 }
@@ -102,47 +103,50 @@ void StarShip::SetAccelerationRate(const float rate)
 
 void StarShip::SetDesiredVelocity(const glm::vec2 target_position)
 {
-
 	m_desiredVelocity = Util::Normalize(target_position - GetTransform()->position);
 }
 
 void StarShip::Seek()
 {
+	// New for Lab 7.1
+	// Find Next Waypoint if within 10px of the current waypoint
 
-	if(Util::Distance(m_patrolPath[m_wayPoint],GetTransform()->position)<10)
+	if(Util::Distance(m_patrolPath[m_wayPoint], GetTransform()->position) < 10)
 	{
 		// check to see if you are at the last point in the path
 		if(++m_wayPoint == m_patrolPath.size())
 		{
-			// if so ..reset
-			m_wayPoint = 0l;
+			// if so..reset
+			m_wayPoint = 0;
 		}
 		SetTargetPosition(m_patrolPath[m_wayPoint]);
 	}
-		SetDesiredVelocity(GetTargetPosition());
 
-		const glm::vec2 steering_direction = GetDesiredVelocity() - GetCurrentDirection();
+	SetDesiredVelocity(GetTargetPosition());
 
-		LookWhereYoureGoing(steering_direction);
+	const glm::vec2 steering_direction = GetDesiredVelocity() - GetCurrentDirection();
 
-		GetRigidBody()->acceleration = GetCurrentDirection() * GetAccelerationRate();
+	LookWhereYoureGoing(steering_direction);
+
+	GetRigidBody()->acceleration = GetCurrentDirection() * GetAccelerationRate();
 }
 
 void StarShip::LookWhereYoureGoing(const glm::vec2 target_direction)
 {
-	
 	float target_rotation = Util::SignedAngle(GetCurrentDirection(), target_direction) -90.0f;
 
-	const float last_Rotation = target_rotation;
+	float last_rotation = target_rotation;
 
-	constexpr float turn_sensitivity = 3.0f;
+	const float turn_sensitivity = 3.0f;
+
 	if(target_rotation < 0)
 	{
-		target_rotation += 100.0f;
+		target_rotation += 180.0f;
 	}
-	if(target_rotation > 176 && target_rotation <184.0f)
+
+	if(target_rotation > 176.0f && target_rotation < 184.0f)
 	{
-		target_rotation = last_Rotation;
+		target_rotation = last_rotation;
 	}
 
 	if(GetCollisionWhiskers()[0] || GetCollisionWhiskers()[1] || GetCollisionWhiskers()[2])
@@ -167,16 +171,7 @@ void StarShip::Reset()
 
 void StarShip::m_move()
 {
-	Seek(); // get our Target for this frame
-	
-
-	// maybe a switch - case
-
-	// switch (behaviour)
-	//    case(seek)
-	//    case(arrive)
-	//    case(flee)
-	//    case(avoidance)
+	Seek();
 
 	//                      final Position  Position Term   Velocity      Acceleration Term
 	// Kinematic Equation-> Pf            = Pi +            Vi * (time) + (0.5) * Ai * (time * time)
@@ -207,10 +202,9 @@ void StarShip::m_move()
 
 void StarShip::m_buildPatrolPath()
 {
-	m_patrolPath.push_back(glm::vec2(760, 40)); // top-right corner
-	m_patrolPath.push_back(glm::vec2(760, 560)); // bottom-right corner
-	m_patrolPath.push_back(glm::vec2(40, 560)); // bottom-left corner
-	m_patrolPath.push_back(glm::vec2(40, 40)); // top-left corner
-
+	m_patrolPath.emplace_back(760, 40); // Top-Right Corner of the Screen
+	m_patrolPath.emplace_back(760, 560); // Bottom-Right Corner of the Screen
+	m_patrolPath.emplace_back(40, 560); // Bottom-Leeft Corner of the Screen
+	m_patrolPath.emplace_back(40, 40); // Top-Left Corner of the Screen
 	SetTargetPosition(m_patrolPath[m_wayPoint]);
 }

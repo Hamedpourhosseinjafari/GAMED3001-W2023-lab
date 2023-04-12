@@ -1,6 +1,7 @@
 #pragma once
 #ifndef __PATROL_ACTION__
-#define __PATROL__ACTION__
+#define __PATROL_ACTION__
+
 #include "ActionNode.h"
 
 class PatrolAction : public ActionNode
@@ -9,6 +10,7 @@ public:
 	PatrolAction();
 	virtual ~PatrolAction();
 
-	virtual void Action() override; // define here
+	virtual void Action() override; // Define our action here
 };
-#endif
+
+#endif /* defined (__PATROL_ACTION__) */

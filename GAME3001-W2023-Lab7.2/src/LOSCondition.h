@@ -1,4 +1,3 @@
-
 #pragma once
 #ifndef __LOS_CONDITION__
 #define __LOS_CONDITION__
@@ -11,10 +10,11 @@ public:
 	LOSCondition(bool LOS = false);
 	virtual ~LOSCondition();
 
-	//getters and setters
+	// Setter
 	void SetLOS(bool state);
-	virtual bool Condition() override;;
+
+	virtual bool Condition() override;
 private:
-	bool m_hasLOS;
+	bool m_hasLOS{};
 };
-#endif
+#endif /* defined (__LOS_CONDITION__) */
