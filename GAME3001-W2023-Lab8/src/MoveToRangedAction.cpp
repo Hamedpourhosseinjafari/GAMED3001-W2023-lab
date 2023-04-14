@@ -5,7 +5,7 @@
 MoveToRangeAction::MoveToRangeAction(Agent* agent)
 	:ActionNode(agent)
 {
-	m_name = "Move To Player Action";
+	m_name = "Move To range Action";
 }
 
 MoveToRangeAction::~MoveToRangeAction()
