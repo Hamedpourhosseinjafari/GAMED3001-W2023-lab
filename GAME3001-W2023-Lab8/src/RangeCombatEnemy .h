@@ -32,7 +32,7 @@ public:
 
 	// public functions
 	void Seek();
-	void LookWhereYoureGoing(glm::vec2 target_direction);
+	void LookWhereYoureGoing(glm::vec2 target_direction, bool direction_hack =true);
 	void Reset();
 
 	// new for lab 7.2
